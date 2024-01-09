@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: `{{ count() }}`,
 })
-export class AppComponent {
-  title = 'ng-cheduler-playground';
+export class AppComponent implements OnInit {
+  count = signal(0);
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.count.set(this.count() + 1);
+    }, 1000);
+  }
 }
